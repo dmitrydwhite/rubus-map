@@ -3,7 +3,7 @@
 body {
   background-color: #3e004a;
   font-family: Arial;
-    color: #ffc0ce;
+  color: #ffc0ce;
 
 }
 
@@ -13,8 +13,8 @@ body {
 }
 
 .navbar {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid #ffc0ce;
+  border-bottom: 1px solid #ffc0ce;
 }
 
 .navbutton {
@@ -25,16 +25,28 @@ body {
 
 .error_msg {
   width: 80%;
-  color: red;
+  color: #ff3357;
   margin-left: auto;
   margin-right: auto;
 }
 
-.button {
-  width: 40%;
+.button, .toggler {
   text-align: center;
+  margin-top: 17px;
+  margin-bottom: 17px;
   margin-left: auto;
   margin-right: auto;
+  padding: 10px;
+  border: 1px solid #ffc0ce;
+  cursor: pointer;
+}
+
+.button {
+  width: 45%;
+}
+
+.toggler {
+  width: 55%;
 }
 
 .clear {
