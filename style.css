@@ -12,8 +12,13 @@ body {
   float: right;
 }
 
+.navbar {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
 .navbutton {
-  display: inline;
+  text-align: center;
   width: 33%;
   float: left;
 }
