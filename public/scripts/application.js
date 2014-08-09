@@ -76,7 +76,7 @@ var app = (function() {
       // TODO: Add timestamp for data decay
       // TODO: Submit gathered data to a database
       console.log(patchData);
-      $.ajax('http://localhost:3000/api/patch', {data: patchData});
+      $.ajax('../api/patches', {method: 'POST'});
     });
   };
 

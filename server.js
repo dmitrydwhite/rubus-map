@@ -17,8 +17,8 @@ var createApp = module.exports.app = function (options, client) {
   app.use(require('method-override')());
   app.use(express.static(__dirname + '/public'));
 
-  var People = bookshelf.Model.extend({
-    tableName: 'people'
+  var Patches = bookshelf.Model.extend({
+    tableName: 'patches'
   });
 
   app.get('/', function (req, res) {
@@ -26,49 +26,15 @@ var createApp = module.exports.app = function (options, client) {
     res.redirect('/home/');
   });
 
-  app.get('/api/people', function (req, res) {
-    People.fetchAll().then(function(result) {
-      res.json({people: result.toJSON()});
-    })
-    .done();
+  app.post('/api/patches', function (req, res) {
+    console.log('reached the server');
+    // Patches.forge(req.body)
+    //   .save().then(function(result) {
+    //     res.json({created: result.toJSON()});
+    //   })
+    //   .done();
   });
 
-  app.get('/api/people/:id', function (req, res) {
-    People.where({id: req.params.id}).fetchAll().then(function(result) {
-      res.json({person: result.toJSON()});
-    })
-    .done();
-  });
-
-  app.post('/api/people', function (req, res) {
-    People.forge(req.body)
-      .save().then(function(result) {
-        res.json({created: result.toJSON()});
-      })
-      .done();
-  });
-
-  app.put('/api/people/:id', function (req, res) {
-    console.log('attempting to delete');
-    console.log(req.body);
-    People.where({id: req.params.id}).fetch().then(function(person) {
-      return person.save(req.body);
-    }).then(function(person) {
-      res.json({updated: person.toJSON()});
-    })
-    .done();
-  });
-
-  app.delete('/api/people/:id', function (req, res) {
-    var destroyedPerson;
-    People.where({id: req.params.id}).fetch().then(function(person) {
-      destroyedPerson = person.clone();
-      return person.destroy();
-    }).then(function() {
-      res.json({destroyed: destroyedPerson.toJSON()});
-    })
-    .done();
-  });
   return app;
 };
 
