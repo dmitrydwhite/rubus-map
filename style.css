@@ -14,13 +14,19 @@ body {
 
 .navbar {
   border-top: 1px solid #ffc0ce;
-  border-bottom: 1px solid #ffc0ce;
 }
 
 .navbutton {
   text-align: center;
+  border-bottom: 1px solid #ffc0ce;
   width: 33%;
   float: left;
+}
+
+.nav_on {
+  border-left: 1px solid #ffc0ce;
+  border-right: 1px solid #ffc0ce;
+  border-bottom: none;
 }
 
 .error_msg {
@@ -43,6 +49,10 @@ body {
 
 .button {
   width: 45%;
+}
+
+.button:hover, .toggler:hover, .navbutton:hover {
+  background-color: #3e0028;
 }
 
 .toggler {

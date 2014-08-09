@@ -2,10 +2,13 @@
 
 var app = (function() {
   var navClass;
+  var lastLoc;
 
   // Set an event listener for navbar buttons
   $('.navbutton').click(function() {
+    $('.navbutton').removeClass('nav_on');
     navClass = $(this).attr('class');
+    $(this).addClass('nav_on');
     reDraw();
   });
 
@@ -36,10 +39,23 @@ var app = (function() {
   var getLocation = function() {
     $('.toggler').click(function() {
       if ($('.loc_switch').text() === 'ENTER MANUALLY') {
-        $('.loc_switch').text('USE GPS');
+        $('.loc_switch').text('USING GPS');
+        findDevice();
       } else {
         $('.loc_switch').text('ENTER MANUALLY');
       }
+    });
+  };
+
+  // Function to find device's location
+  var findDevice = function() {
+    console.log('looking for device');
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var latString = position.coords.latitude.toString().slice(0,6);
+      var longString = position.coords.longitude.toString().slice(0,7);
+      var positionString = latString + ', ' + longString;
+      lastLoc = positionString;
+      $('.where').val(lastLoc);
     });
   };
 
