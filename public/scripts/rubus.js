@@ -32,3 +32,13 @@ var submitted =
   'SUBMIT ANOTHER PATCH' +
   '</div>' +
   '</div>';
+
+var nanciscor =
+  '<div class="content">' +
+  '<div id="map-canvas">' +
+  '</div>' +
+  '<div class="map_buttons">' +
+  '<div class="layer jam">FIND JAM</div>' +
+  '<div class="layer berries">FIND BERRIES</div>' +
+  '</div>' +
+  '</div>';

@@ -20,7 +20,11 @@ var app = (function() {
       getLocation();
       sharePatch();
     }
-    else {
+    else if (navClass === 'navbutton finding') {
+      $('.content').remove();
+      $('.navbar').after(nanciscor);
+      initialize();
+    } else {
     // TODO: Create templates for "jamming" and "finding"
       $('.content').remove();
       $('.navbar').after('<div class="content"></div>');
@@ -73,15 +77,13 @@ var app = (function() {
       } else {
         var patchData = {};
         patchData.location = $('.where').val();
-        // TODO: Check for location type, handle
-        // error if no location is provided, convert
+        // TODO: Check for location type, convert
         // to GPS coordinates as necessary before storing
         patchData.fecundity = $('.how_many').val();
         patchData.maturity = $('.how_ripe').val();
         patchData.name = $('.name').val();
         patchData.description = $('.description').val();
         // TODO: Add timestamp for data decay
-        // TODO: Submit gathered data to a database
         console.log(patchData);
         $.ajax('../api/patches', {
           method: 'POST',
@@ -119,6 +121,17 @@ var app = (function() {
       }
       reDraw();
     });
+  };
+
+  // Set Listeners and Methods for "Finding" tab
+
+  var initialize = function() {
+    var mapOptions = {
+      center: new google.maps.LatLng(45.07, -123.04),
+      zoom: 12
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
   };
 
 })();

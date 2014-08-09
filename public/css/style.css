@@ -53,7 +53,7 @@ body {
   margin-right: auto;
 }
 
-.button, .toggler, .info_button {
+.button, .toggler, .info_button, .layer {
   text-align: center;
   margin-top: 17px;
   margin-bottom: 17px;
@@ -80,6 +80,11 @@ body {
   min-height: 36px;
 }
 
+.layer {
+  float: right;
+  width: 10%;
+}
+
 .button:hover,
 .toggler:hover,
 .navbutton:hover,
@@ -99,5 +104,14 @@ body {
 
 .where:focus {
   border: none;
+}
+
+#map-canvas {
+  /*TODO: Detect the height of window, match map height to window height*/
+  width: 80%;
+  margin-left: 3%;
+/*  margin-right: auto;*/
+  height: 100%;
+  min-height: 800px;
 }
 
