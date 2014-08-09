@@ -1,0 +1,88 @@
+.clear {
+  clear: both;
+}
+
+body {
+  background-color: #3e004a;
+  font-family: Arial;
+  color: #ffc0ce;
+  cursor: default;
+
+}
+
+.container {
+  width: 98%;
+  border: 1px solid #ffc0ce;
+  padding: 3px;
+}
+
+.sub_title {
+  width: 85%;
+  float: right;
+}
+
+.navbar {
+  border-top: 1px solid #ffc0ce;
+}
+
+.navbuffer {
+  width: 4.7%;
+  border-bottom: 1px solid #ffc0ce;
+  min-height: 20px;
+  float: left;
+}
+
+.navbutton {
+  text-align: center;
+  border-bottom: 1px solid #ffc0ce;
+  width: 30%;
+  float: left;
+  min-height: 20px;
+}
+
+.nav_on {
+  border-left: 1px solid #ffc0ce;
+  border-right: 1px solid #ffc0ce;
+  border-bottom: none;
+}
+
+.error_msg {
+  width: 80%;
+  color: #ff3357;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button, .toggler {
+  text-align: center;
+  margin-top: 17px;
+  margin-bottom: 17px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border: 1px solid #ffc0ce;
+  cursor: pointer;
+}
+
+.button {
+  width: 45%;
+}
+
+.button:hover, .toggler:hover, .navbutton:hover {
+  background-color: #3e0028;
+}
+
+.toggler {
+  width: 55%;
+}
+
+.where {
+  width: 98%;
+  background-color: #6D1C72;
+  line-height: 1.5rem;
+}
+
+.where:focus {
+  border: none;
+}
+
