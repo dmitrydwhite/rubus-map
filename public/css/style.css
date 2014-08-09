@@ -87,7 +87,7 @@ body {
   background-color: #3e0028;
 }
 
-.where {
+.where, .name, .description {
   width: 98%;
   background-color: #6D1C72;
   line-height: 1.5rem;

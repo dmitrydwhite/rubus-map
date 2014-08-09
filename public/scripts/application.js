@@ -73,7 +73,8 @@ var app = (function() {
       // to GPS coordinates as necessary before storing
       patchData.fecundity = $('.how_many').val();
       patchData.maturity = $('.how_ripe').val();
-      // patchData.nature = 'pick';
+      patchData.name = $('.name').val();
+      patchData.description = $('.description').val();
       // TODO: Add timestamp for data decay
       // TODO: Submit gathered data to a database
       console.log(patchData);

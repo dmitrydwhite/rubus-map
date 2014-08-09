@@ -12,6 +12,11 @@ var rubusTemplate =
   '<input class="how_many" type="range">' +
   '<p>How Ripe?</p>' +
   '<input class="how_ripe" type="range">' +
+  '<p>Name this Berry Patch</p>' +
+  '<input type="text" class="name" ' +
+  'placeholder="Type the name">' +
+  '<p>Describe where the berries are:</p>' +
+  '<textarea class="description"></textarea>' +
   '<div class="button">Share This Berry Patch</div>' +
   '</div>';
 
