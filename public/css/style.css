@@ -16,9 +16,17 @@ body {
   padding: 3px;
 }
 
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: Times;
+}
+
 .sub_title {
   width: 85%;
-  float: right;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .navbar {
