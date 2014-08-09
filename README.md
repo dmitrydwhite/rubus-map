@@ -1,4 +1,4 @@
-rubus-map
+RubusMap
 =========
 
 find ripe blackberries near you

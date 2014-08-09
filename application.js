@@ -1,7 +1,7 @@
 'use strict';
 
 var app = (function() {
-  var navClass;
+  var navClass = 'navbutton picking';
   var lastLoc;
 
   // Set an event listener for navbar buttons
@@ -21,6 +21,7 @@ var app = (function() {
       sharePatch();
     }
     else {
+    // TODO: Create templates for "jamming" and "finding"
       $('.content').remove();
       $('.navbar').after('<div class="content"></div>');
       $('.content').append('<div class="clear"></div>');
@@ -33,6 +34,7 @@ var app = (function() {
   };
 
   // Set Listeners and Methods for "Picking" tab
+  // TODO: Set Listeners and methods for other two tabs
 
   // Listener for toggling whether to use device
   // location for submit.
@@ -42,6 +44,8 @@ var app = (function() {
         $('.loc_switch').text('USING GPS');
         findDevice();
       } else {
+        $('.where').val('');
+        $('.where').attr('placeholder', 'Type an address or coordinates');
         $('.loc_switch').text('ENTER MANUALLY');
       }
     });
@@ -49,6 +53,7 @@ var app = (function() {
 
   // Function to find device's location
   var findDevice = function() {
+    $('.where').attr('placeholder', 'Using device GPS location...')
     navigator.geolocation.getCurrentPosition(function (position) {
       var latString = position.coords.latitude.toString().slice(0,6);
       var longString = position.coords.longitude.toString().slice(0,7);
@@ -63,11 +68,13 @@ var app = (function() {
     $('.button').click(function() {
       var patchData = {};
       patchData.loc = $('.where').val();
+      // TODO: Check for location type, convert to GPS
+      // coordinates as necessary before storing
       patchData.fecundity = $('.how_many').val();
       patchData.maturity = $('.how_ripe').val();
       patchData.nature = 'pick';
-      // TODO: Gather all data and submit to a database
-      alert('You are Fixing to Share Your Berries!');
+      // TODO: Add timestamp for data decay
+      // TODO: Submit gathered data to a database
       console.log(patchData);
     });
   };
