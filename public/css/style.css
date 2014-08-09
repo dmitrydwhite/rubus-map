@@ -87,6 +87,10 @@ body {
   background-color: #3e0028;
 }
 
+.location_fail, .location_fail:hover {
+  background-color: red;
+}
+
 .where, .name, .description {
   width: 98%;
   background-color: #6D1C72;

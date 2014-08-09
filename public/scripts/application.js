@@ -66,24 +66,46 @@ var app = (function() {
   // Listener for "Share Berry Patch" button
   var sharePatch = function() {
     $('.button').click(function() {
-      var patchData = {};
-      patchData.location = $('.where').val();
-      // TODO: Check for location type, handle
-      // error if no location is provided, convert
-      // to GPS coordinates as necessary before storing
-      patchData.fecundity = $('.how_many').val();
-      patchData.maturity = $('.how_ripe').val();
-      patchData.name = $('.name').val();
-      patchData.description = $('.description').val();
-      // TODO: Add timestamp for data decay
-      // TODO: Submit gathered data to a database
-      console.log(patchData);
-      $.ajax('../api/patches', {
-        method: 'POST',
-        data: patchData});
-      $('.content').remove();
-      $('.navbar').after(submitted);
-      moveAlong();
+      if (!$('.where').val()) {
+        $('.button').text('Must Enter Location')
+          .addClass('location_fail');
+        watchLocationEntry();
+      } else {
+        var patchData = {};
+        patchData.location = $('.where').val();
+        // TODO: Check for location type, handle
+        // error if no location is provided, convert
+        // to GPS coordinates as necessary before storing
+        patchData.fecundity = $('.how_many').val();
+        patchData.maturity = $('.how_ripe').val();
+        patchData.name = $('.name').val();
+        patchData.description = $('.description').val();
+        // TODO: Add timestamp for data decay
+        // TODO: Submit gathered data to a database
+        console.log(patchData);
+        $.ajax('../api/patches', {
+          method: 'POST',
+          data: patchData});
+        $('.content').remove();
+        $('.navbar').after(submitted);
+        moveAlong();
+      }
+    });
+  };
+
+  //Listener for Where Input having value
+  var watchLocationEntry = function() {
+    // TODO: Make this better.  The submit button
+    // should change when the user enters any value
+    // into the location input or when the user uses
+    // the device GPS location detection.
+    $('.where').change(function() {
+      console.log('where is changed');
+      if ($('.where').val()) {
+        console.log('where has value');
+        $('.button').removeClass('location_fail')
+          .text('Share This Berry Patch');
+      }
     });
   };
 
@@ -93,7 +115,7 @@ var app = (function() {
       if ($(this).attr('class') === 'info_button find') {
         navClass = 'navbutton finding';
         $('.navbutton').removeClass('nav_on');
-        $('.navbutton finding').addClass('nav_on');
+        $('.finding').addClass('nav_on');
       }
       reDraw();
     });
