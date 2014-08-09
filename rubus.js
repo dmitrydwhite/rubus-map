@@ -8,8 +8,8 @@ var rubusTemplate =
   '<p class="input_text">Type in your location</p>' +
   '<input class="where" type="text">' +
   '<p>How Many?</p>' +
-  '<input type="range">' +
+  '<input class="how_many" type="range">' +
   '<p>How Ripe?</p>' +
-  '<input type="range">' +
+  '<input class="how_ripe" type="range">' +
   '<div class="button">Share This Berry Patch</div>' +
   '</div>';

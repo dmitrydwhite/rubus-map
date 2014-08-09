@@ -49,7 +49,6 @@ var app = (function() {
 
   // Function to find device's location
   var findDevice = function() {
-    console.log('looking for device');
     navigator.geolocation.getCurrentPosition(function (position) {
       var latString = position.coords.latitude.toString().slice(0,6);
       var longString = position.coords.longitude.toString().slice(0,7);
@@ -62,10 +61,15 @@ var app = (function() {
   // Listener for "Share Berry Patch" button
   var sharePatch = function() {
     $('.button').click(function() {
+      var patchData = {};
+      patchData.loc = $('.where').val();
+      patchData.fecundity = $('.how_many').val();
+      patchData.maturity = $('.how_ripe').val();
+      patchData.nature = 'pick';
       // TODO: Gather all data and submit to a database
       alert('You are Fixing to Share Your Berries!');
+      console.log(patchData);
     });
   };
-
 
 })();
