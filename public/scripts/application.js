@@ -67,16 +67,34 @@ var app = (function() {
   var sharePatch = function() {
     $('.button').click(function() {
       var patchData = {};
-      patchData.loc = $('.where').val();
-      // TODO: Check for location type, convert to GPS
-      // coordinates as necessary before storing
+      patchData.location = $('.where').val();
+      // TODO: Check for location type, handle
+      // error if no location is provided, convert
+      // to GPS coordinates as necessary before storing
       patchData.fecundity = $('.how_many').val();
       patchData.maturity = $('.how_ripe').val();
-      patchData.nature = 'pick';
+      // patchData.nature = 'pick';
       // TODO: Add timestamp for data decay
       // TODO: Submit gathered data to a database
       console.log(patchData);
-      $.ajax('../api/patches', {method: 'POST'});
+      $.ajax('../api/patches', {
+        method: 'POST',
+        data: patchData});
+      $('.content').remove();
+      $('.navbar').after(submitted);
+      moveAlong();
+    });
+  };
+
+  // Listener for buttons after patch submitted
+  var moveAlong = function() {
+    $('.info_button').click(function() {
+      if ($(this).attr('class') === 'info_button find') {
+        navClass = 'navbutton finding';
+        $('.navbutton').removeClass('nav_on');
+        $('.navbutton finding').addClass('nav_on');
+      }
+      reDraw();
     });
   };
 

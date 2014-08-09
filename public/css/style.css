@@ -53,7 +53,7 @@ body {
   margin-right: auto;
 }
 
-.button, .toggler {
+.button, .toggler, .info_button {
   text-align: center;
   margin-top: 17px;
   margin-bottom: 17px;
@@ -68,12 +68,23 @@ body {
   width: 45%;
 }
 
-.button:hover, .toggler:hover, .navbutton:hover {
-  background-color: #3e0028;
-}
-
 .toggler {
   width: 55%;
+}
+
+.info_button {
+  width: 40%;
+  float: left;
+  margin-left: 2%;
+  margin-right: 2%;
+  min-height: 36px;
+}
+
+.button:hover,
+.toggler:hover,
+.navbutton:hover,
+.info_button:hover {
+  background-color: #3e0028;
 }
 
 .where {

@@ -28,11 +28,11 @@ var createApp = module.exports.app = function (options, client) {
 
   app.post('/api/patches', function (req, res) {
     console.log('reached the server');
-    // Patches.forge(req.body)
-    //   .save().then(function(result) {
-    //     res.json({created: result.toJSON()});
-    //   })
-    //   .done();
+    Patches.forge(req.body)
+      .save().then(function(result) {
+        res.json({created: result.toJSON()});
+      })
+      .done();
   });
 
   return app;

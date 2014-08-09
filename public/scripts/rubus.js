@@ -14,3 +14,16 @@ var rubusTemplate =
   '<input class="how_ripe" type="range">' +
   '<div class="button">Share This Berry Patch</div>' +
   '</div>';
+
+var submitted =
+  '<div class="content">' +
+  '<div class="info">' +
+  'You have successfully submitted this Berry Patch' +
+  '</div>' +
+  '<div class="info_button find">' +
+  'FIND MORE PATCHES' +
+  '</div>' +
+  '<div class="info_button pick">' +
+  'SUBMIT ANOTHER PATCH' +
+  '</div>' +
+  '</div>';
