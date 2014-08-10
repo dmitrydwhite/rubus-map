@@ -1,0 +1,36 @@
+{
+  "name": "rubus-map",
+  "version": "0.0.1",
+  "description": "An app that maps user-submitted blackberry-picking locations",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.8.2",
+    "bluebird": "^2.2.2",
+    "lodash": "^2.4.1",
+    "knex": "^0.6.22",
+    "bookshelf": "^0.7.7",
+    "pg": "^3.4.0",
+    "morgan": "^1.2.2",
+    "body-parser": "^1.6.2",
+    "method-override": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dmitrydwhite/rubus-map.git"
+  },
+  "keywords": [
+    "blackberry",
+    "map"
+  ],
+  "author": "Dmitry White",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmitrydwhite/rubus-map/issues"
+  },
+  "homepage": "https://github.com/dmitrydwhite/rubus-map"
+}
