@@ -3,6 +3,7 @@
 var app = (function() {
   var navClass = 'navbutton picking';
   var lastLoc;
+  var map;
 
   // Set an event listener for navbar buttons
   $('.navbutton').click(function() {
@@ -16,16 +17,16 @@ var app = (function() {
   var reDraw = function() {
     if (navClass === 'navbutton picking') {
       $('.content').remove();
-      $('.navbar').after(rubusTemplate);
+      $('.navbar').after(pickingTemplate);
       getLocation();
       sharePatch();
     }
     else if (navClass === 'navbutton finding') {
       $('.content').remove();
-      $('.navbar').after(nanciscor);
+      $('.navbar').after(findingTemplate);
       initialize();
     } else {
-    // TODO: Create templates for "jamming" and "finding"
+    // TODO: Create templates for "jamming"
       $('.content').remove();
       $('.navbar').after('<div class="content"></div>');
       $('.content').append('<div class="clear"></div>');
@@ -48,7 +49,7 @@ var app = (function() {
         $('.loc_switch').text('USING GPS');
         findDevice();
       } else {
-        $('.where').val('');
+        $('.where').val(lastLoc || '');
         $('.where').attr('placeholder', 'Type an address or coordinates');
         $('.loc_switch').text('ENTER MANUALLY');
       }
@@ -57,7 +58,8 @@ var app = (function() {
 
   // Function to find device's location
   var findDevice = function() {
-    $('.where').attr('placeholder', 'Using device GPS location...')
+    $('.where').attr('placeholder', 'Using device GPS location...');
+    $('.where').val('');
     navigator.geolocation.getCurrentPosition(function (position) {
       var latString = position.coords.latitude.toString().slice(0,6);
       var longString = position.coords.longitude.toString().slice(0,7);
@@ -75,6 +77,7 @@ var app = (function() {
           .addClass('location_fail');
         watchLocationEntry();
       } else {
+        lastLoc = $('.where').val();
         var patchData = {};
         patchData.location = $('.where').val();
         // TODO: Check for location type, convert
@@ -84,12 +87,11 @@ var app = (function() {
         patchData.name = $('.name').val();
         patchData.description = $('.description').val();
         // TODO: Add timestamp for data decay
-        console.log(patchData);
         $.ajax('../api/patches', {
           method: 'POST',
           data: patchData});
         $('.content').remove();
-        $('.navbar').after(submitted);
+        $('.navbar').after(submittedTemplate);
         moveAlong();
       }
     });
@@ -125,13 +127,54 @@ var app = (function() {
 
   // Set Listeners and Methods for "Finding" tab
 
+  // Initialize Google Map
   var initialize = function() {
+    var mapCenter =
+      lastLoc ? [located(lastLoc).lat, located(lastLoc).lng]
+      : [45.05, -123.01];
+
     var mapOptions = {
-      center: new google.maps.LatLng(45.07, -123.04),
+      center: new google.maps.LatLng(mapCenter[0], mapCenter[1]),
       zoom: 12
     };
 
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    getPatches();
+  };
+
+  // Retrieve the previously submitted patches from the
+  // database
+  var getPatches = function() {
+    $.ajax('../api/patches', {method: 'GET'})
+      .then(function(data) {
+        mapMarkers(data.patches);
+      });
+  };
+
+  // Plot the dataset as markers on the map.
+  var mapMarkers = function(array) {
+    array.forEach(function(point) {
+      var pointLoc = located(point);
+      var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
+      new google.maps.Marker({
+        position: markerLocation,
+        map: map
+      });
+    });
+  };
+
+  // Deserialize the string location data for use by
+  // Google Maps API
+  var located = function(obj) {
+    var locationData = {};
+    if (obj.location) {
+      locationData.lat = parseFloat(obj.location.split(' ')[0]);
+      locationData.lng = parseFloat(obj.location.split(' ')[1]);
+    } else {
+      locationData.lat = parseFloat(obj.split(' ')[0]);
+      locationData.lng = parseFloat(obj.split(' ')[1]);
+    }
+    return locationData;
   };
 
 })();

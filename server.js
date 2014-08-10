@@ -26,8 +26,15 @@ var createApp = module.exports.app = function (options, client) {
     res.redirect('/home/');
   });
 
+  app.get('/api/patches', function(req, res) {
+    console.log('reached get patches');
+    Patches.fetchAll().then(function(result) {
+      res.json({patches: result.toJSON()});
+    });
+  });
+
   app.post('/api/patches', function (req, res) {
-    console.log('reached the server');
+    console.log('reached post a patch');
     Patches.forge(req.body)
       .save().then(function(result) {
         res.json({created: result.toJSON()});

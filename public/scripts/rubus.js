@@ -1,6 +1,6 @@
 'use strict';
 
-var rubusTemplate =
+var pickingTemplate =
   '<div class="content">' +
   '<div class="button">Share This Berry Patch</div>' +
   '<div class="toggler">Use Current Device Location?' +
@@ -20,7 +20,7 @@ var rubusTemplate =
   '<div class="button">Share This Berry Patch</div>' +
   '</div>';
 
-var submitted =
+var submittedTemplate =
   '<div class="content">' +
   '<div class="info">' +
   'You have successfully submitted this Berry Patch' +
@@ -33,7 +33,7 @@ var submitted =
   '</div>' +
   '</div>';
 
-var nanciscor =
+var findingTemplate =
   '<div class="content">' +
   '<div id="map-canvas">' +
   '</div>' +
