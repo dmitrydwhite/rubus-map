@@ -87,7 +87,7 @@ var app = (function() {
         patchData.name = $('.name').val();
         patchData.description = $('.description').val();
         // TODO: Add timestamp for data decay
-        $.ajax('../api/patches', {
+        $.ajax('/api/patches', {
           method: 'POST',
           data: patchData});
         $('.content').remove();
@@ -145,7 +145,7 @@ var app = (function() {
   // Retrieve the previously submitted patches from the
   // database
   var getPatches = function() {
-    $.ajax('../api/patches', {method: 'GET'})
+    $.ajax('/api/patches', {method: 'GET'})
       .then(function(data) {
         mapMarkers(data.patches);
       });
