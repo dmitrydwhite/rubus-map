@@ -54,7 +54,7 @@ if (require.main === module) {
     env: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 3000,
     dbURL: process.env.DATABASE_URL ||
-      'postgres://localhost/jsi_express'
+      'postgres://localhost/rubus'
   };
 
   pg.connectAsync(settings.dbURL).spread(function(client, done) {
