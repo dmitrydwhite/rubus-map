@@ -2,6 +2,7 @@
 
 var app = (function() {
   var navClass = 'navbutton picking';
+  // var Coords = new RegExp(/^\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?$/);
   var lastLoc;
   var map;
 
@@ -63,17 +64,35 @@ var app = (function() {
     });
   };
 
+  // Check function for submitting to geocode
+  var geoCode = function(valueString) {
+    $.ajax('http://maps.googleapis.com/maps/api/geocode/',
+      {
+        method: 'GET',
+        options: 'json',
+        parameters: {
+          address: valueString
+        },
+        key: 'AIzaSyAKHCG_W0FU66-06W4BM5keazMSbm8Z29c'
+      }).then(function(response) {
+        console.log(response);
+        return '45.1, -123.1';
+      });
+  };
+
   // Listener for "Share Berry Patch" button
   var sharePatch = function() {
     $('.button').click(function() {
-      if (!$('.where').val()) {
+      if ($('.where').val().toString().trim() === '') {
         $('.button').text('Must Enter Location')
           .addClass('location_fail');
         watchLocationEntry();
+      } else if (0 === 1) {
+        console.log('placeholding');
       } else {
         lastLoc = $('.where').val();
         var patchData = {};
-        patchData.location = $('.where').val();
+        patchData.location = geoCode($('.where').val());
         // TODO: Check for location type, convert
         // to GPS coordinates as necessary before storing
         patchData.fecundity = $('.how_many').val();
@@ -91,7 +110,7 @@ var app = (function() {
     });
   };
 
-  //Listener for Where Input having value
+  //Listener for "Where" Input having value
   var watchLocationEntry = function() {
     // TODO: Make this better.  The submit button
     // should change when the user enters any value
@@ -147,14 +166,16 @@ var app = (function() {
 
   // Plot the dataset as markers on the map.
   var mapMarkers = function(array) {
-    array.forEach(function(point) {
-      var pointLoc = located(point);
-      var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
-      new google.maps.Marker({
-        position: markerLocation,
-        map: map
+    if (array.length > 0) {
+      array.forEach(function(point) {
+        var pointLoc = located(point);
+        var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
+        new google.maps.Marker({
+          position: markerLocation,
+          map: map
+        });
       });
-    });
+    }
   };
 
   // Deserialize the string location data for use by
@@ -162,11 +183,11 @@ var app = (function() {
   var located = function(obj) {
     var locationData = {};
     if (obj.location) {
-      locationData.lat = parseFloat(obj.location.split(' ')[0]);
-      locationData.lng = parseFloat(obj.location.split(' ')[1]);
+      locationData.lat = parseFloat(obj.location.split(',')[0]);
+      locationData.lng = parseFloat(obj.location.split(',')[1]);
     } else {
-      locationData.lat = parseFloat(obj.split(' ')[0]);
-      locationData.lng = parseFloat(obj.split(' ')[1]);
+      locationData.lat = parseFloat(obj.split(',')[0]);
+      locationData.lng = parseFloat(obj.split(',')[1]);
     }
     return locationData;
   };
