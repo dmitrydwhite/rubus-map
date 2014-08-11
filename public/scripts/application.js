@@ -178,6 +178,7 @@ var app = (function() {
 
   // Plot the dataset as markers on the map.
   var mapMarkers = function(array) {
+    console.log(array);
     if (array.length > 0) {
       array.forEach(function(point) {
         var pointLoc = located(point);
