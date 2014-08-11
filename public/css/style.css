@@ -62,7 +62,7 @@ h1 {
 }
 
 .button, .toggler, .info_button, .layer {
-  background-color: #ffc0ce;
+  background-color: #8dcf4c;
   text-align: center;
   margin-top: 17px;
   margin-bottom: 17px;
@@ -100,7 +100,7 @@ h1 {
 }
 
 .navbutton:hover {
-  background-color: #ffc0ce;
+  background-color: #8dcf4c;
 }
 
 .button:hover,
