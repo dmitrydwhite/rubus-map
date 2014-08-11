@@ -120,7 +120,6 @@ h3 {
 
 .button:hover,
 .toggler:hover,
-/*.navbutton:hover,*/
 .info_button:hover,
 .layer:hover {
   background-color: #6D1C72;
@@ -139,7 +138,6 @@ h3 {
 
 .where, .name, .description {
   width: 98%;
-  /*background-color: #6D1C72;*/
   line-height: 1.5rem;
   /*TODO: Make sure that cursor is visible on focus*/
   padding: 4px;
