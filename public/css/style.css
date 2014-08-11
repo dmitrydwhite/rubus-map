@@ -89,15 +89,27 @@ h1 {
 }
 
 .layer {
-  float: right;
-  width: 10%;
+  float: left;
+  width: 20%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  min-height: 36px;
 }
 
 .button:hover,
 .toggler:hover,
 .navbutton:hover,
-.info_button:hover {
+.info_button:hover,
+.layer:hover {
   background-color: #3e0028;
+}
+
+.jam, .jam:hover, .heat, .heat:hover {
+  background-color: grey;
+  color: black;
+  cursor: default;
 }
 
 .location_fail, .location_fail:hover {
@@ -108,6 +120,8 @@ h1 {
   width: 98%;
   background-color: #6D1C72;
   line-height: 1.5rem;
+  /*TODO: Make sure that cursor is visible on focus*/
+  padding: 4px;
 }
 
 .where:focus {
@@ -116,9 +130,9 @@ h1 {
 
 #map-canvas {
   /*TODO: Detect the height of window, match map height to window height*/
-  width: 80%;
-  margin-left: 3%;
-/*  margin-right: auto;*/
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   height: 100%;
   min-height: 800px;
 }

@@ -28,13 +28,7 @@ var app = (function() {
     } else {
     // TODO: Create templates for "jamming"
       $('.content').remove();
-      $('.navbar').after('<div class="content"></div>');
-      $('.content').append('<div class="clear"></div>');
-      $('.content').append($('<p>', {
-        'class': 'error_msg',
-        text: 'We\'re sorry, this function is still ' +
-          'under construction. Please check back soon!'
-      }));
+      $('.navbar').after(jammingTemplate);
     }
   };
 

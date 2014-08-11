@@ -35,10 +35,20 @@ var submittedTemplate =
 
 var findingTemplate =
   '<div class="content">' +
-  '<div id="map-canvas">' +
-  '</div>' +
   '<div class="map_buttons">' +
+  '<div class="layer heat">SEE RIPENESS</div>' +
   '<div class="layer jam">FIND JAM</div>' +
   '<div class="layer berries">FIND BERRIES</div>' +
+  '<div class="clear"></div>' +
   '</div>' +
+  '<div id="map-canvas">' +
+  '</div>' +
+  '</div>';
+
+var jammingTemplate =
+  '<div class="content">' +
+  '<p class="error_msg">We\'re sorry, but this function isn\'t supported ' +
+  'yet.</p>' +
+  '<p class="error_msg">COMING SOON: Advertise your own homemade ' +
+  'blackberry jam, or find some nearby.</p>' +
   '</div>';
