@@ -3,16 +3,16 @@
 }
 
 body {
-  background-color: #3e004a;
+  background-color: white ;
   font-family: Arial;
-  color: #ffc0ce;
+  color: #3e004a;
   cursor: default;
 
 }
 
 .container {
   width: 98%;
-  border: 1px solid #ffc0ce;
+  border: 1px solid #3e004a;
   padding: 3px;
 }
 
@@ -30,27 +30,27 @@ h1 {
 }
 
 .navbar {
-  border-top: 1px solid #ffc0ce;
+  border-top: 1px solid #3e004a;
 }
 
 .navbuffer {
   width: 4.7%;
-  border-bottom: 1px solid #ffc0ce;
+  border-bottom: 1px solid #3e004a;
   min-height: 20px;
   float: left;
 }
 
 .navbutton {
   text-align: center;
-  border-bottom: 1px solid #ffc0ce;
+  border-bottom: 1px solid #3e004a;
   width: 30%;
   float: left;
   min-height: 20px;
 }
 
 .nav_on {
-  border-left: 1px solid #ffc0ce;
-  border-right: 1px solid #ffc0ce;
+  border-left: 1px solid #3e004a;
+  border-right: 1px solid #3e004a;
   border-bottom: none;
 }
 
@@ -62,13 +62,14 @@ h1 {
 }
 
 .button, .toggler, .info_button, .layer {
+  background-color: #ffc0ce;
   text-align: center;
   margin-top: 17px;
   margin-bottom: 17px;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
-  border: 1px solid #ffc0ce;
+  border: 1px solid #3e004a;
   cursor: pointer;
 }
 
@@ -98,12 +99,17 @@ h1 {
   min-height: 36px;
 }
 
+.navbutton:hover {
+  background-color: #ffc0ce;
+}
+
 .button:hover,
 .toggler:hover,
-.navbutton:hover,
+/*.navbutton:hover,*/
 .info_button:hover,
 .layer:hover {
-  background-color: #3e0028;
+  background-color: #6D1C72;
+  color: #ffc0ce;
 }
 
 .jam, .jam:hover, .heat, .heat:hover {
@@ -118,7 +124,7 @@ h1 {
 
 .where, .name, .description {
   width: 98%;
-  background-color: #6D1C72;
+  /*background-color: #6D1C72;*/
   line-height: 1.5rem;
   /*TODO: Make sure that cursor is visible on focus*/
   padding: 4px;
