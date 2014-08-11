@@ -65,19 +65,29 @@ var app = (function() {
   };
 
   // Check function for submitting to geocode
-  var geoCode = function(valueString) {
-    $.ajax('http://maps.googleapis.com/maps/api/geocode/',
-      {
-        method: 'GET',
-        options: 'json',
-        parameters: {
-          address: valueString
-        },
-        key: 'AIzaSyAKHCG_W0FU66-06W4BM5keazMSbm8Z29c'
-      }).then(function(response) {
-        console.log(response);
-        return '45.1, -123.1';
+  var geoCode = function(valueString, cb) {
+    var codedObject = '';
+    var isCoordinate = /^-?\d+\.?\d*,?\s?-?\d?\d?\d?\.?\d*$/;
+    if (isCoordinate.test(valueString)) {
+      codedObject = valueString;
+      console.log('true');
+      cb(codedObject);
+    } else {
+      var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+      var address = valueString.split(' ');
+      address.forEach(function(block) {
+        url += block + '+';
       });
+      url += '&key=AIzaSyAaUu9l8yI8zgkWDu-7EopI-G4yz3jQVGo';
+      $.ajax(url).then(function(response) {
+          console.log(response);
+          codedObject += response.results[0].geometry.location.lat.toString() + ', ';
+          codedObject += response.results[0].geometry.location.lng.toString();
+          lastLoc = codedObject;
+          console.log(lastLoc);
+          cb(codedObject);
+        });
+    }
   };
 
   // Listener for "Share Berry Patch" button
@@ -87,27 +97,29 @@ var app = (function() {
         $('.button').text('Must Enter Location')
           .addClass('location_fail');
         watchLocationEntry();
-      } else if (0 === 1) {
-        console.log('placeholding');
       } else {
         lastLoc = $('.where').val();
-        var patchData = {};
-        patchData.location = geoCode($('.where').val());
-        // TODO: Check for location type, convert
-        // to GPS coordinates as necessary before storing
-        patchData.fecundity = $('.how_many').val();
-        patchData.maturity = $('.how_ripe').val();
-        patchData.name = $('.name').val();
-        patchData.description = $('.description').val();
-        // TODO: Add timestamp for data decay
-        $.ajax('/api/patches', {
-          method: 'POST',
-          data: patchData});
-        $('.content').remove();
-        $('.navbar').after(submittedTemplate);
-        moveAlong();
+        geoCode($('.where').val(), postPatch);
       }
     });
+  };
+
+  // Callback function after user-inputted location has been geocoded
+  var postPatch = function(locationValue) {
+    var patchData = {};
+    patchData.location = locationValue;
+    patchData.fecundity = $('.how_many').val();
+    patchData.maturity = $('.how_ripe').val();
+    patchData.name = $('.name').val();
+    patchData.description = $('.description').val();
+    // TODO: Add timestamp for data decay
+    $.ajax('/api/patches', {
+      method: 'POST',
+      data: patchData});
+    console.log(patchData);
+    $('.content').remove();
+    $('.navbar').after(submittedTemplate);
+    moveAlong();
   };
 
   //Listener for "Where" Input having value
