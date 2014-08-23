@@ -210,6 +210,13 @@ var app = (function() {
     }
   };
 
+  // Listener for berry marker option
+  var watchBerryMarkers = function(heatmap) {
+    $('.berries').click(function() {
+      heatmap.setMap(null);
+    });
+  };
+
   // Listener for heatmap option
   var watchHeat = function() {
     $('.heat').click(function() {
@@ -217,6 +224,8 @@ var app = (function() {
         data: heatMapData
       });
       heatmap.setMap(map);
+      heatmap.set('radius', 40);
+      watchBerryMarkers(heatmap);
     });
   };
 

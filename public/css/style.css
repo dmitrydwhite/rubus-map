@@ -126,7 +126,7 @@ h3 {
   color: #ffc0ce;
 }
 
-.jam, .jam:hover, .heat, .heat:hover {
+.jam, .jam:hover {
   background-color: grey;
   color: black;
   cursor: default;
