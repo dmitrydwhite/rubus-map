@@ -5,6 +5,7 @@ var app = (function() {
   // var Coords = new RegExp(/^\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?$/);
   var lastLoc;
   var map;
+  var heatMapData = [];
 
   // Set an event listener for navbar buttons
   $('.navbutton').click(function() {
@@ -167,31 +168,7 @@ var app = (function() {
     getPatches();
   };
 
-  // Retrieve the previously submitted patches from the
-  // database
-  var getPatches = function() {
-    $.ajax('/api/patches', {method: 'GET'})
-      .then(function(data) {
-        mapMarkers(data.patches);
-      });
-  };
-
-  // Plot the dataset as markers on the map.
-  var mapMarkers = function(array) {
-    console.log(array);
-    if (array.length > 0) {
-      array.forEach(function(point) {
-        var pointLoc = located(point);
-        var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
-        new google.maps.Marker({
-          position: markerLocation,
-          map: map
-        });
-      });
-    }
-  };
-
-  // Deserialize the string location data for use by
+  // Helper function to deserialize the string location data for use by
   // Google Maps API
   var located = function(obj) {
     var locationData = {};
@@ -203,6 +180,44 @@ var app = (function() {
       locationData.lng = parseFloat(obj.split(',')[1]);
     }
     return locationData;
+  };
+
+  // Retrieve the previously submitted patches from the
+  // database
+  var getPatches = function() {
+    $.ajax('/api/patches', {method: 'GET'})
+      .then(function(data) {
+        mapMarkers(data.patches);
+        watchHeat();
+      });
+  };
+
+  // Plot the dataset as markers on the map.
+  var mapMarkers = function(array) {
+    console.log(array);
+    if (array.length > 0) {
+      array.forEach(function(point) {
+        var pointWeight = (point.fecundity + point.maturity)/20;
+        var pointLoc = located(point);
+        var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
+        new google.maps.Marker({
+          position: markerLocation,
+          weight: pointWeight,
+          map: map
+        });
+        heatMapData.push({location: markerLocation, weight: pointWeight});
+      });
+    }
+  };
+
+  // Listener for heatmap option
+  var watchHeat = function() {
+    $('.heat').click(function() {
+      var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatMapData
+      });
+      heatmap.setMap(map);
+    });
   };
 
 })();
