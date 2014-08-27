@@ -222,6 +222,9 @@ var app = (function() {
   // Listener for heatmap option
   var watchHeat = function() {
     $('.heat').click(function() {
+      pointData.forEach(function(marker) {
+        marker.setMap(null);
+      });
       var heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapData
       });
