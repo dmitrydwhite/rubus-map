@@ -215,6 +215,9 @@ var app = (function() {
   // Listener for berry marker option
   var watchBerryMarkers = function(heatmap) {
     $('.berries').click(function() {
+      pointData.forEach(function(marker) {
+        marker.setMap(map);
+      });
       heatmap.setMap(null);
     });
   };
@@ -222,14 +225,14 @@ var app = (function() {
   // Listener for heatmap option
   var watchHeat = function() {
     $('.heat').click(function() {
-      pointData.forEach(function(marker) {
-        marker.setMap(null);
-      });
       var heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapData
       });
       heatmap.setMap(map);
       heatmap.set('radius', 80);
+      pointData.forEach(function(marker) {
+        marker.setMap(null);
+      });
       watchBerryMarkers(heatmap);
     });
   };
