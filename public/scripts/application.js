@@ -6,6 +6,7 @@ var app = (function() {
   var lastLoc;
   var map;
   var heatMapData = [];
+  var pointData = [];
 
   // Set an event listener for navbar buttons
   $('.navbutton').click(function() {
@@ -187,7 +188,8 @@ var app = (function() {
   var getPatches = function() {
     $.ajax('/api/patches', {method: 'GET'})
       .then(function(data) {
-        mapMarkers(data.patches);
+        pointData = data.patches;
+        mapMarkers(pointData);
         watchHeat();
       });
   };
@@ -224,7 +226,7 @@ var app = (function() {
         data: heatMapData
       });
       heatmap.setMap(map);
-      heatmap.set('radius', 40);
+      heatmap.set('radius', 80);
       watchBerryMarkers(heatmap);
     });
   };
