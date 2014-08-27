@@ -188,8 +188,7 @@ var app = (function() {
   var getPatches = function() {
     $.ajax('/api/patches', {method: 'GET'})
       .then(function(data) {
-        pointData = data.patches;
-        mapMarkers(pointData);
+        mapMarkers(data.patches);
         watchHeat();
       });
   };
@@ -202,11 +201,12 @@ var app = (function() {
         var pointWeight = (point.fecundity + point.maturity)/20;
         var pointLoc = located(point);
         var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
-        new google.maps.Marker({
+        var marker = new google.maps.Marker({
           position: markerLocation,
           weight: pointWeight,
           map: map
         });
+        pointData.push(marker);
         heatMapData.push({location: markerLocation, weight: pointWeight});
       });
     }
