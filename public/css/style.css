@@ -69,11 +69,15 @@ h3 {
   border-bottom: none;
 }
 
-.error_msg {
+.error_msg, .intro_msg {
   width: 80%;
   color: #ff3357;
   margin-left: auto;
   margin-right: auto;
+}
+
+.intro_msg {
+  color: black;
 }
 
 .button, .toggler, .info_button, .layer {
