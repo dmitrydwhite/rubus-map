@@ -209,6 +209,7 @@ var app = (function() {
         pointData.push(marker);
         heatMapData.push({location: markerLocation, weight: pointWeight});
       });
+      pinListener(pointData);
     }
   };
 
@@ -234,6 +235,19 @@ var app = (function() {
         marker.setMap(null);
       });
       watchBerryMarkers(heatmap);
+    });
+  };
+
+  // Listener for clicking on map pins
+  var pinListener = function (markers) {
+    var infoWindow = new google.maps.InfoWindow({
+      content: 'You have opened an InfoWindow'
+    });
+
+    markers.forEach(function (pin) {
+      google.maps.event.addListener(pin, 'click', function() {
+        infoWindow.open(map, pin);
+      });
     });
   };
 
