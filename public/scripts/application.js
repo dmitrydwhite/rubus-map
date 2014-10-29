@@ -7,6 +7,7 @@ var app = (function() {
   var map;
   var heatMapData = [];
   var pointData = [];
+  var thisPin = {};
 
   // Set an event listener for navbar buttons
   $('.navbutton').click(function() {
@@ -197,15 +198,17 @@ var app = (function() {
   var mapMarkers = function(array) {
     console.log(array);
     if (array.length > 0) {
-      array.forEach(function(point) {
+      array.forEach(function (point) {
         var pointWeight = (point.fecundity + point.maturity)/20;
         var pointLoc = located(point);
         var markerLocation = new google.maps.LatLng(pointLoc.lat, pointLoc.lng);
         var marker = new google.maps.Marker({
           position: markerLocation,
           weight: pointWeight,
-          map: map
+          map: map,
         });
+        marker.place = point.name;
+        marker.description = point.description;
         pointData.push(marker);
         heatMapData.push({location: markerLocation, weight: pointWeight});
       });
@@ -240,12 +243,14 @@ var app = (function() {
 
   // Listener for clicking on map pins
   var pinListener = function (markers) {
-    var infoWindow = new google.maps.InfoWindow({
-      content: 'You have opened an InfoWindow'
-    });
+
+    var infoWindow = new google.maps.InfoWindow();
 
     markers.forEach(function (pin) {
       google.maps.event.addListener(pin, 'click', function() {
+        thisPin.place = pin.place;
+        thisPin.description = pin.description;
+        infoWindow.setContent('<p>' + pin.place + '</p><p>' + pin.description);
         infoWindow.open(map, pin);
       });
     });
