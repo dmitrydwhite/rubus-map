@@ -1,6 +1,6 @@
 'use strict';
 
-var app = (function() {
+(function() {
   var navClass = 'navbutton picking';
   // var Coords = new RegExp(/^\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?$/);
   var lastLoc;
@@ -8,6 +8,7 @@ var app = (function() {
   var heatMapData = [];
   var pointData = [];
   var thisPin = {};
+  var siteState = {};
 
   // Set an event listener for navbar buttons
   $('.navbutton').click(function() {
@@ -207,8 +208,8 @@ var app = (function() {
           weight: pointWeight,
           map: map,
         });
-        marker.place = point.name;
-        marker.description = point.description;
+        marker.place = point.name !== '' ? point.name : 'No description entered';
+        marker.description = point.description !== '' ? point.description : 'Pick carefully!';
         pointData.push(marker);
         heatMapData.push({location: markerLocation, weight: pointWeight});
       });
@@ -223,21 +224,25 @@ var app = (function() {
         marker.setMap(map);
       });
       heatmap.setMap(null);
+      siteState.heat = false;
     });
   };
 
   // Listener for heatmap option
   var watchHeat = function() {
     $('.heat').click(function() {
-      var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatMapData
-      });
-      heatmap.setMap(map);
-      heatmap.set('radius', 80);
-      pointData.forEach(function(marker) {
-        marker.setMap(null);
-      });
-      watchBerryMarkers(heatmap);
+      if (!siteState.heat) {
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatMapData
+        });
+        heatmap.setMap(map);
+        heatmap.set('radius', 80);
+        pointData.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        watchBerryMarkers(heatmap);
+        siteState.heat = true;
+      }
     });
   };
 
@@ -250,7 +255,7 @@ var app = (function() {
       google.maps.event.addListener(pin, 'click', function() {
         thisPin.place = pin.place;
         thisPin.description = pin.description;
-        infoWindow.setContent('<p>' + pin.place + '</p><p>' + pin.description);
+        infoWindow.setContent('<p>' + pin.place + '</p><p>' + pin.description + '</p>');
         infoWindow.open(map, pin);
       });
     });
